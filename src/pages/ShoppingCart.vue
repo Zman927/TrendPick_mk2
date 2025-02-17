@@ -23,14 +23,19 @@
         <q-btn unelevated outline square class="col q-ml-md">선택삭제</q-btn>
       </div>
 
-      <q-btn class="full-width q-mt-sm" padding="14px" unelevated color="black" square>전체상품주문문</q-btn>
+      <q-btn class="full-width q-mt-sm" padding="14px" unelevated color="black" square @click="toOrder">전체상품주문</q-btn>
     </q-card>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, useRouter } from 'vue';
 import { api } from 'src/boot/axios';
+
+const $router = useRouter
+const toOrder = () => {
+  $router.push('/order')
+};
 
 const products = ref([
   {
