@@ -1,43 +1,49 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
-      <q-toolbar>
-        <q-btn
-          flat
-          dense
-          round
-          icon="menu"
-          aria-label="Menu"
-          @click="toggleLeftDrawer"
-        />
+  <q-layout view="hHh 1pr fff">
+    <q-header flat pinned>
+      <q-toolbar class="bg-white text-dark row items-center justify-between">
+        <div class="row items-center cursor-pointer" @click="goToMainPage">
+          <span class="text-h5 q-font-bold">TrendPick</span>
+        </div>
 
-        <q-toolbar-title>
-          Quasar App
-        </q-toolbar-title>
+        <div class="row items-center justify-center q-gutter-md">
+          <span>
+            <q-icon name="person" size="md" class="cursor-pointer" @click="goToLogin" />
+          </span>
+          <span>
+            <q-icon name="shopping_bag" size="md" class="cursor-pointer" @click="goToCart" />
+          </span>
+          <span>
+            <q-btn flat dense icon="menu" @click="onClickMenu"></q-btn>
+            <q-drawer v-model="drawerOpen" side="right" overlay>
+              <div class="column q-pa-lg text-bold cursor-pointer">
+                <span v-for="cat in cats" :key="cat" class="text-uppercase cursor-pointer q-ml-md"
+                  @click="handleCat(cat)">{{
+                    cat
+                  }}</span>
+              </div>
+              <div>
 
-        <div>Quasar v{{ $q.version }}</div>
+              </div>
+            </q-drawer>
+          </span>
+        </div>
       </q-toolbar>
     </q-header>
 
-    <q-drawer
-      v-model="leftDrawerOpen"
-      show-if-above
-      bordered
-    >
-      <q-list>
-        <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label>
-
-        <EssentialLink
-          v-for="link in linksList"
-          :key="link.title"
-          v-bind="link"
-        />
-      </q-list>
-    </q-drawer>
+    <q-footer flat class="bg-grey-2 row justify-between text-black text-weight-light q-pa-md">
+      <div class="q-pa-md column">
+        <span>INSTAGRAM</span>
+        <span>SMART STORE</span>
+        <span>KAKAOTALK</span>
+      </div>
+      <div class="q-pa-md column text-right">
+        <span>상호명: TrendPick</span>
+        <span>사업자등록번호: XXX-XX-XXXXX</span>
+        <span>주소: ooo시 ooo동 123-45</span>
+        <span>© 2025 TrendPick. All rights reserved.</span>
+      </div>
+    </q-footer>
 
     <q-page-container>
       <router-view />
@@ -46,57 +52,32 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue'
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
-const linksList = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev'
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework'
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev'
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev'
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev'
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev'
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev'
-  }
-]
+const $router = useRouter();
+const drawerOpen = ref(false)
 
-const leftDrawerOpen = ref(false)
+const cats = ref([
+  'all', 'outwear', 'top', 'bottom'
+])
 
-function toggleLeftDrawer () {
-  leftDrawerOpen.value = !leftDrawerOpen.value
+const handleCat = (cat) => {
+  $router.push({ name: 'ProductList', query: { cat: cat } })
+}
+
+const goToMainPage = () => {
+  $router.push('/')
+};
+const goToLogin = () => {
+  $router.push('/login')
+};
+const goToCart = () => {
+  $router.push('/shoppingcart')
+};
+
+
+function onClickMenu() {
+  drawerOpen.value = !drawerOpen.value
 }
 </script>
