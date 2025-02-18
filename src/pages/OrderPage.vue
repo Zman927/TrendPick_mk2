@@ -21,9 +21,6 @@
         </div>
       </q-card>
 
-
-
-
       <q-btn class="full-width q-mt-sm" padding="14px" unelevated color="black" square @click="toOrder">주문하기</q-btn>
     </q-card>
   </q-page>
