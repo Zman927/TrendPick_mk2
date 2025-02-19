@@ -28,15 +28,16 @@
 <script setup>
 import { api } from 'src/boot/axios';
 import { onMounted, ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
-const $route = useRouter();
+const $router = useRouter();
 const productId = ref()
 const selectedSize = ref(null);
-const productData = ref()
+const productData = ref();
+const route = useRoute();
 
 const toOrder = () => {
-  $route.push('/order')
+  $router.push('/order')
 };
 
 const options = ref([
@@ -62,7 +63,7 @@ function addCart() {
 }
 
 onMounted(() => {
-  productId.value = $route.query.id
+  productId.value = route.query.id
   fetchData();
 })
 </script>

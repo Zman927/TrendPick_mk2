@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pb-xl">
+  <q-page class="q-pb-xl q-ma-xl">
     <q-card square bordered flat class="q-px-sm q-py-lg" style="max-width: 600px; margin: auto;">
       <q-card style="border: 1px solid lightgrey;" square flat class="column q-mb-sm q-pa-md"
         v-for="(product, i) in products" :key="i">

@@ -18,9 +18,8 @@
             <q-drawer v-model="drawerOpen" side="right" overlay>
               <div class="column q-pa-lg text-bold cursor-pointer">
                 <span v-for="cat in cats" :key="cat" class="text-uppercase cursor-pointer q-ml-md"
-                  @click="handleCat(cat)">{{
-                    cat
-                  }}</span>
+                  @click="handleCat(cat)">{{ cat }}
+                </span>
               </div>
               <div>
 
@@ -64,7 +63,7 @@ const cats = ref([
 
 const handleCat = (cat) => {
   $router.push({ name: 'ProductList', query: { cat: cat } })
-}
+};
 
 const goToMainPage = () => {
   $router.push('/')

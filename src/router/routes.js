@@ -11,7 +11,6 @@ const routes = [
       { path: 'findpwd', component: () => import('pages/FindPasswordPage.vue')},
       { path: 'order', component: () => import('pages/OrderPage.vue')},
       { path: 'products', name: 'ProductList', component: () => import('pages/ProductListPage.vue')},
-
     ]
   },
 

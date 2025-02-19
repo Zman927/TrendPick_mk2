@@ -12,27 +12,29 @@
           </div>
         </div>
         <div class="row justify-between q-mt-md">
-          <q-btn outline square unelevated>삭제</q-btn>
-          <q-btn square unelevated color="black">주문하기</q-btn>
+          <q-btn outline square unelevated @click="remove">삭제</q-btn>
+          <q-btn square unelevated color="black" @click="toOrder">주문하기</q-btn>
         </div>
       </q-card>
 
 
       <div class="row full-width justify-between">
         <q-btn unelevated outline square class="col">전체선택</q-btn>
-        <q-btn unelevated outline square class="col q-ml-md">선택삭제</q-btn>
+        <q-btn unelevated outline square class="col q-ml-md" @click="remove">선택삭제</q-btn>
       </div>
 
-      <q-btn class="full-width q-mt-sm" padding="14px" unelevated color="black" square @click="toOrder">전체상품주문</q-btn>
+      <q-btn class="full-width q-mt-sm" padding="14px" unelevated color="black" square @click="toOrder">선택상품전체주문</q-btn>
     </q-card>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted, useRouter } from 'vue';
+import { ref, onMounted } from 'vue';
 import { api } from 'src/boot/axios';
+import { useRouter } from 'vue-router';
 
-const $router = useRouter
+const $router = useRouter();
+
 const toOrder = () => {
   $router.push('/order')
 };
@@ -69,6 +71,10 @@ function cart() {
     .catch((error) => {
       console.error(error);
     });
+}
+
+function remove() {
+  api.delete('/cart/remove/:itemId')
 }
 
 onMounted(() => {
